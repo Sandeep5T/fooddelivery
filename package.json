@@ -1,7 +1,7 @@
 {
   "name": "sandeep",
   "version": "1.0.0",
-  "description": "Food Delivery App",
+  "description": "",
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
