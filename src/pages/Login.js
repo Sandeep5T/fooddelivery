@@ -3,7 +3,7 @@ import { useContext, useState } from "react";
 import MyButton from "../components/MyButton";
 import authContext from "../utils/authContext";
 
-const Login = (props) => {
+const Login = () => {
   const context = useContext(authContext);
   const [userInput, setUserInput] = useState({});
   const handleChange = (e) => {
@@ -30,34 +30,38 @@ const Login = (props) => {
       });
   };
   return (
-    <form style={{ padding: 10 }} onSubmit={handleSignIn}>
-      <div>
-        <h1>Username</h1>
-        <input
-          type="text"
-          name="username"
-          value={userInput.name}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <h1>Password</h1>
-        <input
-          name="password"
-          value={userInput.name}
-          onChange={handleChange}
-          type="password"
-        />
-      </div>
-      <div style={{ paddingTop: "32px" }}>
-        <MyButton
-          cursor="pointer"
-          type="submit"
-          content="Sign In"
-          bgcolor="#008CBA"
-        />
-      </div>
-    </form>
+    <div>
+      {!context.token && <h4>Please log in before checking restaurants</h4>}
+      <form style={{ padding: 10 }} onSubmit={handleSignIn}>
+        <div>
+          <h1>Username</h1>
+          <input
+            type="text"
+            name="username"
+            value={userInput.name}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <h1>Password</h1>
+          <input
+            name="password"
+            value={userInput.name}
+            onChange={handleChange}
+            type="password"
+          />
+        </div>
+        <div style={{ paddingTop: "32px" }}>
+          <MyButton
+            cursor="pointer"
+            type="submit"
+            content="Sign In"
+            bgcolor="#008CBA"
+          />
+        </div>
+      </form>
+      {context.token && <h4>You are logged in. Go ahead to Restaurants</h4>}
+    </div>
   );
 };
 export default Login;
