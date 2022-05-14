@@ -1,15 +1,33 @@
-import { useState } from "react";
+import axios from "axios";
+import { useContext, useState } from "react";
 import MyButton from "../components/MyButton";
+import authContext from "../utils/authContext";
 
-const Login = () => {
-  const [user, setUser] = useState({});
+const Login = (props) => {
+  const context = useContext(authContext);
+  const [userInput, setUserInput] = useState({});
   const handleChange = (e) => {
-    const newUser = { ...user };
+    const newUser = { ...userInput };
     newUser[e.target.name] = e.target.value;
-    setUser(newUser);
+    setUserInput(newUser);
   };
-  const handleSignIn = () => {
-    console.log("Sign in attempted using ", user);
+  const handleSignIn = (event) => {
+    event.preventDefault();
+    const options = {
+      method: "POST",
+      data: {
+        email: userInput.username,
+        password: userInput.password
+      },
+      url: "https://food-power.glitch.me/login"
+    };
+    axios(options)
+      .then((res) => {
+        context.setToken(res.data.token);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <form style={{ padding: 10 }} onSubmit={handleSignIn}>
@@ -18,7 +36,7 @@ const Login = () => {
         <input
           type="text"
           name="username"
-          value={user.name}
+          value={userInput.name}
           onChange={handleChange}
         />
       </div>
@@ -26,7 +44,7 @@ const Login = () => {
         <h1>Password</h1>
         <input
           name="password"
-          value={user.name}
+          value={userInput.name}
           onChange={handleChange}
           type="password"
         />

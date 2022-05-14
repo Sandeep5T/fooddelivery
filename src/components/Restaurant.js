@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 const Restaurant = (details) => {
+  console.log("Token", details.token);
   return (
     <Link to={`${details.id}/menus`}>
       <div className="card">
