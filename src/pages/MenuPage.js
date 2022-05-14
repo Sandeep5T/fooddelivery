@@ -77,7 +77,7 @@ const MenuPage = (props) => {
           ))}
         </div>
       ) : (
-        <h4>Loading</h4>
+        <h4>Loading Your Food. Please wait</h4>
       )}
     </>
   );
