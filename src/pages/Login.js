@@ -2,22 +2,23 @@ import axios from "axios";
 import { useContext, useState } from "react";
 import MyButton from "../components/MyButton";
 import authContext from "../utils/authContext";
+import { Navigate } from "react-router-dom";
 
 const Login = () => {
   const context = useContext(authContext);
-  const [userInput, setUserInput] = useState({});
+  const [user, setUser] = useState({});
   const handleChange = (e) => {
-    const newUser = { ...userInput };
+    const newUser = { ...user };
     newUser[e.target.name] = e.target.value;
-    setUserInput(newUser);
+    setUser(newUser);
   };
   const handleSignIn = (event) => {
     event.preventDefault();
     const options = {
       method: "POST",
       data: {
-        email: userInput.username,
-        password: userInput.password
+        email: user.username,
+        password: user.password
       },
       url: "https://food-power.glitch.me/login"
     };
@@ -26,7 +27,7 @@ const Login = () => {
         context.setToken(res.data.token);
       })
       .catch((err) => {
-        console.log(err);
+        console.log("Error", err);
       });
   };
   return (
@@ -38,7 +39,7 @@ const Login = () => {
           <input
             type="text"
             name="username"
-            value={userInput.name}
+            value={user.name}
             onChange={handleChange}
           />
         </div>
@@ -46,7 +47,7 @@ const Login = () => {
           <h1>Password</h1>
           <input
             name="password"
-            value={userInput.name}
+            value={user.name}
             onChange={handleChange}
             type="password"
           />
@@ -60,7 +61,7 @@ const Login = () => {
           />
         </div>
       </form>
-      {context.token && <h4>You are logged in. Go ahead to Restaurants</h4>}
+      {context.token && <Navigate to="/restaurants" />}
     </div>
   );
 };
