@@ -8,19 +8,13 @@ const Login = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const context = useContext(authContext);
-  const [user, setUser] = useState({});
-  const handleChange = (e) => {
-    const newUser = { ...user };
-    newUser[e.target.name] = e.target.value;
-    setUser(newUser);
-  };
+  // const [user, setUser] = useState({});
+  // const handleChange = (e) => {
+  //   const newUser = { ...user };
+  //   newUser[e.target.name] = e.target.value;
+  //   setUser(newUser);
+  // };
   const handleSignIn = (event) => {
-    console.log("email ", emailRef.current.name, emailRef.current.value);
-    console.log(
-      "password ",
-      passwordRef.current.name,
-      passwordRef.current.value
-    );
     event.preventDefault();
     const options = {
       method: "POST",
