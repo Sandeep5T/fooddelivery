@@ -1,10 +1,12 @@
 import axios from "axios";
-import { useContext, useState } from "react";
+import { useContext, useState, useRef } from "react";
 import MyButton from "../components/MyButton";
 import authContext from "../utils/authContext";
 import { Navigate } from "react-router-dom";
 
 const Login = () => {
+  const emailRef = useRef();
+  const passwordRef = useRef();
   const context = useContext(authContext);
   const [user, setUser] = useState({});
   const handleChange = (e) => {
@@ -13,12 +15,18 @@ const Login = () => {
     setUser(newUser);
   };
   const handleSignIn = (event) => {
+    console.log("email ", emailRef.current.name, emailRef.current.value);
+    console.log(
+      "password ",
+      passwordRef.current.name,
+      passwordRef.current.value
+    );
     event.preventDefault();
     const options = {
       method: "POST",
       data: {
-        email: user.username,
-        password: user.password
+        email: emailRef.current.value,
+        password: passwordRef.current.value
       },
       url: "https://food-power.glitch.me/login"
     };
@@ -37,18 +45,20 @@ const Login = () => {
         <div>
           <h1>Username</h1>
           <input
+            ref={emailRef}
             type="text"
             name="username"
-            value={user.name}
-            onChange={handleChange}
+            // value={user.name}
+            // onChange={handleChange}
           />
         </div>
         <div>
           <h1>Password</h1>
           <input
+            ref={passwordRef}
             name="password"
-            value={user.name}
-            onChange={handleChange}
+            // value={user.name}
+            // onChange={handleChange}
             type="password"
           />
         </div>
