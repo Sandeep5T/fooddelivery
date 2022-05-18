@@ -7,7 +7,7 @@ import { useState } from "react";
 import authContext from "./utils/authContext";
 import { Provider as ReduxProvider } from "react-redux";
 import { createStore } from "redux";
-import Reducer from "./store/Cart/Reducer";
+import Reducer from "./store/Menupage/Reducer";
 
 const App = () => {
   const styles = {
